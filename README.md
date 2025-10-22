@@ -13,25 +13,25 @@
 ## 1 实验环境搭建
 ### 关于造成系统损伤及后续处理的报告
 #### 事件经过：
-1. 在联想应用商店下载VMwareWorkstationPlayer 17安装包并安装，选择安装路径至D盘。在安装过程中，曾**错误删除或移动过该软件在C盘创建的部分文件夹**，但软件本身仍可以正常使用。
+1. 在联想应用商店下载VMwareWorkstationPlayer 17安装包并安装，选择安装路径至D盘。在安装过程中，曾***错误删除或移动过该软件在C盘创建的部分文件夹***，但软件本身仍可以正常使用。
 
-2. 试图卸载VMware以使用wsl，发现该软件的**卸载按钮为灰色不可选状态**。按照deepseek的建议，下载Geek Uninstaller对其进行**强制删除**（删除前创建了系统还原点1）。
+2. 试图卸载VMware以使用wsl，发现该软件的***卸载按钮为灰色不可选状态***。按照deepseek的建议，下载Geek Uninstaller对其进行***强制删除***（删除前创建了系统还原点1）。
 
-3. 删除后在powershell使用wsl --install命令成功，**无法启用“适用windows的Linux子系统”和“Vitual Mechine Platform”功能**，在显示更新进行到100%时回滚；再次尝试从多个不同途径下载并安装各种不同版本的VMware，均**无法正常运行安装指引程序**。
+3. 删除后在powershell使用wsl --install命令成功，***无法启用“适用windows的Linux子系统”和“Vitual Mechine Platform”功能***，在显示更新进行到100%时回滚；再次尝试从多个不同途径下载并安装各种不同版本的VMware，均***无法正常运行安装指引程序***。
 
-4. 在powershell运行**sfc /scannow**命令，显示“已修复损坏的文件”。并成功运行**DISM /Online /Cleanup- Image /RestoreHealth**命令。再次尝试启用上述功能，仍然回滚。
+4. 在powershell运行***sfc /scannow***命令，显示“已修复损坏的文件”。并成功运行***DISM /Online /Cleanup- Image /RestoreHealth***命令。再次尝试启用上述功能，仍然回滚。
 
-5. 在“**设备管理器**”找到“VMware Virtual Ethemet Adapter VMnet1”，该网络适配器的图标带有警告标识。卸载该设备。再次尝试启用上述功能，仍然回滚。
+5. 在“***设备管理器***”找到“VMware Virtual Ethemet Adapter VMnet1”，该网络适配器的图标带有警告标识。卸载该设备。再次尝试启用上述功能，仍然回滚。
 
-6. 创建系统还原点2，避免因错误删除重要文件导致死机。**在“此电脑”搜索VMware相关文件**，在Program Files文件夹、Users文件夹中找到VMware文件夹（内含大量.sys，.inf，.dll，.cat，.int文件）并删除。在Program Filesx86文件夹中找到VMware安装包并删除。再次尝试启用上述功能失败，仍然回滚。
+6. 创建系统还原点2，避免因错误删除重要文件导致死机。***在“此电脑”搜索VMware相关文件***，在Program Files文件夹、Users文件夹中找到VMware文件夹（内含大量.sys，.inf，.dll，.cat，.int文件）并删除。在Program Filesx86文件夹中找到VMware安装包并删除。再次尝试启用上述功能失败，仍然回滚。
 
-7. 使用Autoruns软件搜索VMware有关条目，仅**在service中找到三项并禁用**。再次尝试启用上述功能失败。
+7. 使用Autoruns软件搜索VMware有关条目，仅***在service中找到三项并禁用***。再次尝试启用上述功能失败。
 
 8. 再次运行sfc /scannow命令，显示“windows资源保护找不到任何完整性冲突”。再次尝试启用上述功能，仍然回滚。试图启用系统还原点1，但发现系统在创建还原点2时**自动删除了还原点1**以释放内存。
 
-9. 在“事件查看器-windows日志-应用程序”查找到来自AppModel-State的警告事件：对程序包Microsoft.MicrosoftPCManager_8wekyb3d8bbwe进行的操作遇到错误：状态位置修复错误，命中错误，修复错误等。 查找到来自winlogon的警告事件：关键通知事件失败。**系统已经出现异常**：网络经常显示“脱机”，键盘的截屏按钮毫无反应。使用“重置此电脑-保留我的文件”选项。
+9. 在“事件查看器-windows日志-应用程序”查找到来自AppModel-State的警告事件：对程序包Microsoft.MicrosoftPCManager_8wekyb3d8bbwe进行的操作遇到错误：状态位置修复错误，命中错误，修复错误等。 查找到来自winlogon的警告事件：关键通知事件失败。***系统已经出现异常***：网络经常显示“脱机”，键盘的截屏按钮毫无反应。使用“重置此电脑-保留我的文件”选项。
 
-10. 因为“适用widows的Linux子系统”功能仍然在功能列表中，也为了避免可能的再次伤害，我选择在重置后的系统中使用wsl。然而运行wsl --status命令显示“wsl安装似乎已损坏”；按任意键进行修复后，又无法启用上述功能，因为“一个或多个要求的事务成员不存在”。我判断**难以在短时间内解决此问题**。
+10. 因为“适用widows的Linux子系统”功能仍然在功能列表中，也为了避免可能的再次伤害，我选择在重置后的系统中使用wsl。然而运行wsl --status命令显示“wsl安装似乎已损坏”；按任意键进行修复后，又无法启用上述功能，因为“一个或多个要求的事务成员不存在”。我判断***难以在短时间内解决此问题***。
 
 11.至此已经消耗了过多时间，我选择放弃使用虚拟机。
 
