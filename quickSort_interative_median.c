@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-// ½»»»Á½¸öÔªËØµÄÖµ
+// äº¤æ¢ä¸¤ä¸ªå…ƒç´ çš„å€¼
 void swap(int* a, int* b) {
     int temp = *a;
     *a = *b;
@@ -13,7 +13,7 @@ void swap(int* a, int* b) {
 int partition_median(int arr[], int low, int high) {
     int mid = low + (high - low) / 2;
 
-    // È·±£arr[low] <= arr[mid] <= arr[high]
+    // ç¡®ä¿arr[low] <= arr[mid] <= arr[high]
     if (arr[low] > arr[mid]) swap(&arr[low], &arr[mid]);
     if (arr[low] > arr[high]) swap(&arr[low], &arr[high]);
     if (arr[mid] > arr[high]) swap(&arr[mid], &arr[high]);
@@ -32,42 +32,42 @@ int partition_median(int arr[], int low, int high) {
     return (i + 1); 
 }
 
-// ·Çµİ¹é¿ìËÙÅÅĞò£¨Ê¹ÓÃÕ»Ä£Äâµİ¹é£©
+// éé€’å½’å¿«é€Ÿæ’åºï¼ˆä½¿ç”¨æ ˆæ¨¡æ‹Ÿé€’å½’ï¼‰
 void quickSort_iterative(int arr[], int low, int high) {
-    // ´´½¨Õ»À´´æ´¢±ß½ç
+    // åˆ›å»ºæ ˆæ¥å­˜å‚¨è¾¹ç•Œ
     int stack[high - low + 1];
     int top = -1;
 
-    // ³õÊ¼±ß½çÈëÕ»
+    // åˆå§‹è¾¹ç•Œå…¥æ ˆ
     stack[++top] = low;
     stack[++top] = high;
 
     while (top >= 0) {
-        // ³öÕ»»ñÈ¡±ß½ç
+        // å‡ºæ ˆè·å–è¾¹ç•Œ
         high = stack[top--];
         low = stack[top--];
 
-        // ·ÖÇø²Ù×÷£¨¿ÉÒÔÓÃÔ­À´µÄpartitionº¯Êı£©
+        // åˆ†åŒºæ“ä½œï¼ˆå¯ä»¥ç”¨åŸæ¥çš„partitionå‡½æ•°ï¼‰
         int pi = partition_median(arr, low, high);
 
-        // Èç¹û×ó±ßÓĞÔªËØ£¬Ñ¹Èë×ó±ß½ç
+        // å¦‚æœå·¦è¾¹æœ‰å…ƒç´ ï¼Œå‹å…¥å·¦è¾¹ç•Œ
         if (pi - 1 > low) {
             stack[++top] = low;
             stack[++top] = pi - 1;
         }
 
-        // Èç¹ûÓÒ±ßÓĞÔªËØ£¬Ñ¹ÈëÓÒ±ß½ç
+        // å¦‚æœå³è¾¹æœ‰å…ƒç´ ï¼Œå‹å…¥å³è¾¹ç•Œ
         if (pi + 1 < high) {
             stack[++top] = pi + 1;
             stack[++top] = high;
         }
     }
 }
-// Éú³É²âÊÔÊı¾İ
+// ç”Ÿæˆæµ‹è¯•æ•°æ®
 void generate_test_data(int size, const char* filename) {
     FILE* file = fopen(filename, "w");
     if (file == NULL) {
-        printf("´íÎó£ºÎŞ·¨´´½¨ÎÄ¼ş %s\n", filename);
+        printf("é”™è¯¯ï¼šæ— æ³•åˆ›å»ºæ–‡ä»¶ %s\n", filename);
         return;
     }
 
@@ -77,14 +77,14 @@ void generate_test_data(int size, const char* filename) {
     }
 
     fclose(file);
-    printf("ÒÑÉú³É %d Ìõ²âÊÔÊı¾İµ½ %s\n", size, filename);
+    printf("å·²ç”Ÿæˆ %d æ¡æµ‹è¯•æ•°æ®åˆ° %s\n", size, filename);
 }
 
-// ´ÓÎÄ¼ş¶ÁÈ¡Êı¾İ
+// ä»æ–‡ä»¶è¯»å–æ•°æ®
 int read_data_from_file(const char* filename, int arr[], int max_size) {
     FILE* file = fopen(filename, "r");
     if (file == NULL) {
-        printf("´íÎó£ºÎŞ·¨´ò¿ªÎÄ¼ş %s\n", filename);
+        printf("é”™è¯¯ï¼šæ— æ³•æ‰“å¼€æ–‡ä»¶ %s\n", filename);
         return 0;
     }
 
@@ -97,19 +97,19 @@ int read_data_from_file(const char* filename, int arr[], int max_size) {
     return count;
 }
 
-// ¼ì²éÊı×éÊÇ·ñÒÑÅÅĞò
+// æ£€æŸ¥æ•°ç»„æ˜¯å¦å·²æ’åº
 int is_sorted(int arr[], int n) {
     for (int i = 0; i < n - 1; i++) {
         if (arr[i] > arr[i + 1]) {
-            return 0; // Î´ÅÅĞò
+            return 0; // æœªæ’åº
         }
     }
-    return 1; // ÒÑÅÅĞò
+    return 1; // å·²æ’åº
 }
 
-// ´òÓ¡Êı×éÇ°20¸öÔªËØ£¨ÓÃÓÚÔ¤ÀÀ£©
+// æ‰“å°æ•°ç»„å‰20ä¸ªå…ƒç´ ï¼ˆç”¨äºé¢„è§ˆï¼‰
 void print_array_preview(int arr[], int n) {
-    printf("Ç°20¸öÔªËØ: ");
+    printf("å‰20ä¸ªå…ƒç´ : ");
     int limit = n < 20 ? n : 20;
     for (int i = 0; i < limit; i++) {
         printf("%d ", arr[i]);
@@ -118,53 +118,53 @@ void print_array_preview(int arr[], int n) {
 }
 
 int main() {
-    printf("=== ¿ìËÙÅÅĞò²âÊÔ³ÌĞò ===\n");
+    printf("=== å¿«é€Ÿæ’åºæµ‹è¯•ç¨‹åº ===\n");
 
-    // ÅäÖÃ²âÊÔ²ÎÊı
+    // é…ç½®æµ‹è¯•å‚æ•°
     const char* filename = "test_data.txt";
     int data_size = 100000; 
     int* data = (int*)malloc(data_size * sizeof(int));
 
     if (data == NULL) {
-        printf("´íÎó£ºÄÚ´æ·ÖÅäÊ§°Ü£¡\n");
+        printf("é”™è¯¯ï¼šå†…å­˜åˆ†é…å¤±è´¥ï¼\n");
         return 1;
     }
 
-    // 1. Éú³É²âÊÔÊı¾İ
-    printf("\n1. Éú³É²âÊÔÊı¾İ...\n");
+    // 1. ç”Ÿæˆæµ‹è¯•æ•°æ®
+    printf("\n1. ç”Ÿæˆæµ‹è¯•æ•°æ®...\n");
     generate_test_data(data_size, filename);
 
-    // 2. ¶ÁÈ¡Êı¾İ
-    printf("2. ¶ÁÈ¡Êı¾İ...\n");
+    // 2. è¯»å–æ•°æ®
+    printf("2. è¯»å–æ•°æ®...\n");
     int actual_size = read_data_from_file(filename, data, data_size);
-    printf("   ³É¹¦¶ÁÈ¡ %d ÌõÊı¾İ\n", actual_size);
+    printf("   æˆåŠŸè¯»å– %d æ¡æ•°æ®\n", actual_size);
     print_array_preview(data, actual_size);
 
-    // 3. Ö´ĞĞÅÅĞò²¢¼ÆÊ±
-    printf("3. ¿ªÊ¼¿ìËÙÅÅĞò...\n");
+    // 3. æ‰§è¡Œæ’åºå¹¶è®¡æ—¶
+    printf("3. å¼€å§‹å¿«é€Ÿæ’åº...\n");
     clock_t start_time = clock();
     quickSort_iterative(data, 0, actual_size - 1);
     clock_t end_time = clock();
 
-    // 4. ¼ÆËãÓÃÊ±
+    // 4. è®¡ç®—ç”¨æ—¶
     double time_used = ((double)(end_time - start_time)) / CLOCKS_PER_SEC;
 
-    // 5. ÑéÖ¤½á¹û
-    printf("4. ÑéÖ¤ÅÅĞò½á¹û...\n");
+    // 5. éªŒè¯ç»“æœ
+    printf("4. éªŒè¯æ’åºç»“æœ...\n");
     if (is_sorted(data, actual_size)) {
-        printf("ÅÅĞòÕıÈ·£¡\n");
+        printf("æ’åºæ­£ç¡®ï¼\n");
     }
     else {
-        printf(" ÅÅĞò´íÎó£¡\n");
+        printf(" æ’åºé”™è¯¯ï¼\n");
     }
 
-    printf("5. ĞÔÄÜÍ³¼Æ£º\n");
-    printf("   - Êı¾İÁ¿: %d Ìõ\n", actual_size);
-    printf("   - ÅÅĞòÓÃÊ±: %.3f Ãë\n", time_used);
+    printf("5. æ€§èƒ½ç»Ÿè®¡ï¼š\n");
+    printf("   - æ•°æ®é‡: %d æ¡\n", actual_size);
+    printf("   - æ’åºç”¨æ—¶: %.3f ç§’\n", time_used);
 
     print_array_preview(data, actual_size);
 
     free(data);
-    printf("\n=== ³ÌĞòÖ´ĞĞÍê±Ï ===\n");
+    printf("\n=== ç¨‹åºæ‰§è¡Œå®Œæ¯• ===\n");
     return 0;
 }
