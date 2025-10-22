@@ -272,6 +272,7 @@ int main() {
 ---
 ## 3.参考资料与特别鸣谢
 * 参考资料
+
   [Vmware下载安装教程](https://blog.csdn.net/A1_3_9_7/article/details/144674497)
 
    [VMware卸载清理工具推荐](https://blog.csdn.net/gitblog_09771/article/details/143130332)
@@ -279,9 +280,11 @@ int main() {
    [在 Windows 10 和 11 上安全清理注册表的 3 种方法](https://guid.recmg.com/tech/blogs/how-to-clean-windows-registry/)
 
    [错误代码0x8007371b](https://learn.microsoft.com/zh-cn/answers/questions/2353250/win11-0x8007371b)
-  [【初探数据结构】详解三大经典排序算法（选择/堆/冒泡）](https://blog.csdn.net/Surplus886/article/details/146455508)
+
+   [【初探数据结构】详解三大经典排序算法（选择/堆/冒泡）](https://blog.csdn.net/Surplus886/article/details/146455508)
 * 特别鸣谢
-  [Deepseek1.3.1(98)](https://chat.deepseek.com/sign_in)
+
+   [Deepseek1.3.1(98)](https://chat.deepseek.com/sign_in)
 
    [bilbil](https://www.bilibili.com/)
 
